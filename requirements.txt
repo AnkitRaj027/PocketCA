@@ -1,0 +1,17 @@
+
+streamlit
+langchain
+langchain-community
+langchain-chroma
+langchain-text-splitters
+chromadb
+
+mistralai
+
+pymupdf
+pypdf
+
+python-dotenv
+
+pandas
+numpy

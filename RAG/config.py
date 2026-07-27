@@ -1,115 +1,21 @@
-from __future__ import annotations
-
-import os
 from pathlib import Path
 
-# ===========================
-# Project Directories
-# ===========================
+# Root directory
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Data folders
+DATA_DIR = ROOT_DIR / "data"
+OFFICIAL_DOCS = DATA_DIR / "official_docs"
+USER_UPLOADS = DATA_DIR / "user_uploads"
 
-RAG_DIR = BASE_DIR / "rag"
-DATA_DIR = BASE_DIR / "data"
-STORAGE_DIR = BASE_DIR / "storage"
+# Vector database
+STORAGE_DIR = ROOT_DIR / "storage"
+OFFICIAL_DB = STORAGE_DIR / "official_db"
+SESSION_DB = STORAGE_DIR / "session_db"
 
-CHUNK_CATALOG_PATH = STORAGE_DIR / "chunk_catalog.jsonl"
-INGESTION_MANIFEST_PATH = STORAGE_DIR / "ingestion_manifest.json"
-USER_PROFILE_STORE_PATH = STORAGE_DIR / "user_profiles.json"
-CHAT_SESSION_STORE_PATH = STORAGE_DIR / "chat_sessions.json"
+# Chunking
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200
 
-SYSTEM_PROMPT_PATH = RAG_DIR / "system_prompt.txt"
-
-SUPPORTED_SOURCE_SUFFIXES = {".pdf"}
-
-# ===========================
-# RAG Settings
-# ===========================
-
-CHUNK_SIZE = int(os.getenv("RAG_CHUNK_SIZE", "900"))
-CHUNK_OVERLAP = int(os.getenv("RAG_CHUNK_OVERLAP", "150"))
-MAX_KEYWORDS_PER_CHUNK = int(
-    os.getenv("RAG_MAX_KEYWORDS_PER_CHUNK", "10")
-)
-
-GRAPH_TEXT_TOP_K = int(os.getenv("RAG_GRAPH_TEXT_TOP_K", "6"))
-GRAPH_SECTION_TOP_K = int(os.getenv("RAG_GRAPH_SECTION_TOP_K", "4"))
-GRAPH_REFERENCE_TOP_K = int(os.getenv("RAG_GRAPH_REFERENCE_TOP_K", "4"))
-
-GRAPH_NEIGHBOR_EXPANSION_TOP_K = int(
-    os.getenv("RAG_GRAPH_NEIGHBOR_EXPANSION_TOP_K", "1")
-)
-
-GRAPH_KEYWORD_EXPANSION_TOP_K = int(
-    os.getenv("RAG_GRAPH_KEYWORD_EXPANSION_TOP_K", "1")
-)
-
-GRAPH_FINAL_TOP_K = int(os.getenv("RAG_GRAPH_FINAL_TOP_K", "8"))
-
-# ===========================
-# Neo4j Configuration
-# ===========================
-
-NEO4J_URI = os.getenv("NEO4J_URI", "")
-NEO4J_USERNAME = os.getenv("NEO4J_USERNAME", "")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
-NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
-
-# ===========================
-# Mistral AI Configuration
-# ===========================
-
-MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
-
-DEFAULT_LLM_MODEL = os.getenv(
-    "MISTRAL_LLM_MODEL",
-    "mistral-small-latest"
-)
-
-DEFAULT_CHAT_MODEL = os.getenv(
-    "MISTRAL_CHAT_MODEL",
-    DEFAULT_LLM_MODEL
-)
-
-LLM_TEMPERATURE = float(
-    os.getenv("LLM_TEMPERATURE", "0.2")
-)
-
-LLM_MAX_TOKENS = int(
-    os.getenv("LLM_MAX_TOKENS", "4096")
-)
-
-# ===========================
-# Chat Settings
-# ===========================
-
-DEFAULT_RESPONSE_MODE = os.getenv(
-    "RAG_RESPONSE_MODE",
-    "compact"
-)
-
-DEFAULT_CHAT_HISTORY_TURNS = int(
-    os.getenv("CHAT_HISTORY_TURNS", "12")
-)
-
-DEFAULT_CHAT_TOOL_STEPS = int(
-    os.getenv("CHAT_TOOL_STEPS", "6")
-)
-
-# ===========================
-# Income Tax Defaults
-# ===========================
-
-DEFAULT_FINANCIAL_YEAR = os.getenv(
-    "DEFAULT_FINANCIAL_YEAR",
-    "FY 2025-26"
-)
-
-DEFAULT_ASSESSMENT_YEAR = os.getenv(
-    "DEFAULT_ASSESSMENT_YEAR",
-    "AY 2026-27"
-)
-
-DEFAULT_STANDARD_DEDUCTION = float(
-    os.getenv("DEFAULT_STANDARD_DEDUCTION", "75000")
-)
+# Retrieval
+TOP_K = 5

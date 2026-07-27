@@ -1,17 +1,22 @@
-
 streamlit
+
 langchain
 langchain-community
-langchain-chroma
+langchain-core
 langchain-text-splitters
-chromadb
+langchain-chroma
+langchain-mistralai
 
-mistralai
+chromadb
 
 pymupdf
 pypdf
 
 python-dotenv
 
+pydantic>=2.11
+pydantic-settings
+
 pandas
 numpy
+rank-bm25

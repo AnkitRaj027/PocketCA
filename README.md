@@ -166,8 +166,6 @@ streamlit run app.py
 
 ## 💬 Example Questions
 
-- What is Section 80C?
-- Explain Rule 3 of the Income-tax Rules.
 - What are the deductions available under the old tax regime?
 - What is TDS under Section 194J?
 - Who is required to file an Income Tax Return?
@@ -267,7 +265,6 @@ PocketCA is intended for educational and informational purposes. While it retrie
 **Ankit Raj**
 
 B.Tech in Artificial Intelligence & Machine Learning  
-Lovely Professional University
 
 ---
 

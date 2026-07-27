@@ -1,6 +1,4 @@
-"""
-Metadata extraction utilities for PocketCA.
-"""
+
 
 from pathlib import Path
 
@@ -10,15 +8,11 @@ from rag.schema import PDFMetadata
 
 
 class MetadataExtractor:
-    """
-    Extracts structured metadata from LangChain documents.
-    """
+   
 
     @staticmethod
     def extract(document: Document) -> PDFMetadata:
-        """
-        Build structured metadata from a LangChain document.
-        """
+       
 
         source = Path(
             document.metadata.get("source", "")
@@ -35,9 +29,7 @@ class MetadataExtractor:
 
     @staticmethod
     def detect_category(filename: str) -> str:
-        """
-        Detect document category from filename.
-        """
+        
 
         name = filename.lower()
 

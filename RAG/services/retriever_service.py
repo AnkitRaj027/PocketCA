@@ -1,6 +1,3 @@
-"""
-Retriever service for PocketCA.
-"""
 
 from typing import List, Optional
 
@@ -13,10 +10,7 @@ from rag.settings import settings
 
 
 class RetrieverService:
-    """
-    Handles vector search operations.
-    """
-
+    
     def __init__(self) -> None:
 
         self.vector_store = Chroma(
@@ -30,9 +24,7 @@ class RetrieverService:
         k: int = settings.top_k,
         filter: Optional[dict] = None,
     ) -> List[Document]:
-        """
-        Retrieve the most relevant documents.
-        """
+        
 
         search_kwargs = {"k": k}
         if filter is not None:
@@ -46,9 +38,7 @@ class RetrieverService:
     query: str,
     k: int = 5,
     ):
-        """
-        Retrieve documents along with similarity scores.
-        """
+        
 
         return self.vector_store.similarity_search_with_score(
             query=query,
@@ -56,9 +46,7 @@ class RetrieverService:
         )
 
     def load_all_documents(self) -> List[Document]:
-        """
-        Load all documents stored in the vector database.
-        """
+        
         try:
             res = self.vector_store.get()
             if not res or "documents" not in res:

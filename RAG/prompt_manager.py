@@ -12,15 +12,7 @@ class PromptManager:
 
     @classmethod
     def load(cls, filename: str) -> str:
-        """
-        Load a prompt file.
-
-        Args:
-            filename: Name of the prompt file.
-
-        Returns:
-            Prompt text.
-        """
+        
 
         path = cls.PROMPT_DIR / filename
 

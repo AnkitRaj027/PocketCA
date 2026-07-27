@@ -1,6 +1,4 @@
-"""
-Centralized initialization of AI models.
-"""
+
 
 from langchain_mistralai import ChatMistralAI
 from langchain_mistralai import MistralAIEmbeddings
@@ -9,9 +7,7 @@ from rag.settings import settings
 
 
 class ModelManager:
-    """
-    Initializes and manages AI models used throughout the application.
-    """
+    
 
     def __init__(self) -> None:
 

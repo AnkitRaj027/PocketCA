@@ -1,12 +1,4 @@
-"""
-Document ingestion service.
 
-This service is responsible for:
-1. Loading official PDF documents.
-2. Splitting documents into chunks.
-3. Creating embeddings.
-4. Building the Chroma vector database.
-"""
 
 from pathlib import Path
 from typing import List
@@ -27,9 +19,7 @@ logger = get_logger(__name__)
 
 
 class IngestionService:
-    """
-    Handles ingestion of official government documents.
-    """
+    
 
     def __init__(self) -> None:
         self.splitter = RecursiveCharacterTextSplitter(
@@ -38,12 +28,7 @@ class IngestionService:
         )
 
     def load_documents(self) -> List[Document]:
-        """
-        Load all PDF files from the official documents folder.
-
-        Returns:
-            List of LangChain Document objects.
-        """
+        
 
         documents: List[Document] = []
 
@@ -73,9 +58,7 @@ class IngestionService:
         self,
         documents: List[Document],
     ) -> List[Document]:
-        """
-        Split documents into chunks.
-        """
+        
 
         logger.info("Splitting documents...")
 
@@ -85,9 +68,7 @@ class IngestionService:
         self,
         chunks: List[Document],
     ) -> None:
-        """
-        Create or rebuild the official Chroma database.
-        """
+        
 
         logger.info("Creating Chroma database...")
 
@@ -102,12 +83,7 @@ class IngestionService:
     def build_official_knowledge_base(
         self,
     ) -> IngestionStats:
-        """
-        Execute the full ingestion pipeline.
-
-        Returns:
-            Ingestion statistics.
-        """
+        
 
         documents = self.load_documents()
 

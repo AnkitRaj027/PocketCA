@@ -46,10 +46,10 @@ if question:
         stream, response_container = st.session_state.query_service.ask_stream(question)
         response_text = st.write_stream(stream)
 
-        # Get sources from container (will be set after streaming completes)
+        
         sources = response_container.get('sources') or []
         
-        # Show sources if they were found and response isn't the fallback message
+        
         if sources:
             st.divider()
             st.markdown("**Sources**")

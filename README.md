@@ -144,131 +144,19 @@ from rag.services.ingest_service import IngestionService
 IngestionService().build_official_knowledge_base()
 ```
 
-This process:
+This will read the PDFs, split them into chunks, extract metadata, and write the Chroma database to `storage/official_db/`.
 
-- Loads all PDFs
-- Extracts text
-- Splits documents into chunks
-- Generates embeddings using Mistral
-- Stores vectors in ChromaDB
 
----
+## Configuration
 
-## ▶️ Run the Application
+Key settings are loaded from `.env` and `rag/settings.py`:
 
-Launch the Streamlit application:
+- `mistral_api_key` - required.
+- `chat_model` - defaults to `mistral-medium-latest`.
+- `embedding_model` - defaults to `mistral-embed`.
+- `chunk_size`, `chunk_overlap`, `top_k` - retrieval and chunking defaults.
 
-```bash
-streamlit run app.py
-```
+## Notes
 
----
-
-## 💬 Example Questions
-
-- What is Section 80C?
-- Explain Rule 3 of the Income-tax Rules.
-- What are the deductions available under the old tax regime?
-- What is TDS under Section 194J?
-- Who is required to file an Income Tax Return?
-- What are the provisions related to capital gains tax?
-
----
-
-## ⚙️ How It Works
-
-```text
-Official PDF Documents
-          │
-          ▼
-Document Loader
-          │
-          ▼
-Text Splitter
-          │
-          ▼
-Metadata Extraction
-          │
-          ▼
-Mistral Embeddings
-          │
-          ▼
-Chroma Vector Database
-          │
-          ▼
-Semantic Retrieval
-          │
-          ▼
-Prompt Construction
-          │
-          ▼
-Mistral LLM
-          │
-          ▼
-Answer with Source Citations
-```
-
----
-
-## ⚙️ Configuration
-
-Application settings are managed through `.env` and `rag/settings.py`.
-
-| Variable | Description |
-|----------|-------------|
-| `MISTRAL_API_KEY` | Mistral API key |
-| `CHAT_MODEL` | Chat model name |
-| `EMBEDDING_MODEL` | Embedding model name |
-| `CHUNK_SIZE` | Size of each document chunk |
-| `CHUNK_OVERLAP` | Overlap between consecutive chunks |
-| `TOP_K` | Number of retrieved chunks |
-
----
-
-## 📌 Current Capabilities
-
-- Official PDF ingestion
-- Automatic text chunking
-- Metadata extraction
-- Persistent vector database
-- Semantic document retrieval
-- Citation-supported responses
-- Streamlit chat interface
-- Mistral-powered RAG pipeline
-
----
-
-## 🚧 Roadmap
-
-Future improvements include:
-
-- Hybrid Retrieval (Vector + BM25)
-- Cross-Encoder Re-ranking
-- User document uploads
-- Form 16 analysis
-- AIS statement analysis
-- Income Tax Notice explanation
-- Tax deduction recommendations
-- ITR filing guidance
-- Conversation memory
-- Streaming responses
-- Multi-document retrieval
-
----
-
-## ⚠️ Disclaimer
-
-PocketCA is intended for educational and informational purposes. While it retrieves information from official government documents, responses should not be considered professional legal or financial advice. Always verify important tax decisions using the latest government notifications or consult a qualified Chartered Accountant.
-
----
-
-## 👨‍💻 Author
-
-**Ankit Raj**
-
-B.Tech in Artificial Intelligence & Machine Learning  
-Lovely Professional University
-
----
-
-If you found this project helpful, consider giving it a ⭐ on GitHub.
+- Answers only include citations when retrieved documents are relevant enough.
+- If the assistant cannot find a relevant answer in the official knowledge base, it falls back to a default refusal message.

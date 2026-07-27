@@ -18,6 +18,8 @@ SYSTEM_PROMPT = PromptManager.load(
 )
 
 FALLBACK_MESSAGE = "I couldn't find this information in the official knowledge base."
+# Similarity score threshold below which results are not considered relevant
+RELEVANCE_THRESHOLD = 0.5
 
 
 class QueryService:
@@ -68,15 +70,26 @@ class QueryService:
         question: str,
     ) -> QueryResponse:
 
-        docs = self.retriever.retrieve(question, k=settings.top_k)
+        # Get documents with similarity scores
+        docs_with_scores = self.retriever.retrieve_with_scores(question, k=settings.top_k)
+        
+        # Check if top result meets relevance threshold
+        is_relevant = False
+        if docs_with_scores:
+            top_score = docs_with_scores[0][1]
+            is_relevant = top_score >= RELEVANCE_THRESHOLD
+        
+        # Only use docs if they're above threshold
+        docs = [doc for doc, score in docs_with_scores]
+        
         messages = self._messages(question, docs)
-
         response = models.chat_llm.invoke(messages)
         
-        # Only return sources if the LLM found relevant information
-        # (i.e., it didn't return the fallback message)
+        # Only return sources if:
+        # 1. The LLM didn't return the fallback message AND
+        # 2. The retrieval results were above the relevance threshold
         sources = []
-        if FALLBACK_MESSAGE not in response.content:
+        if is_relevant and FALLBACK_MESSAGE not in response.content:
             sources = self._sources_for(docs)
 
         return QueryResponse(
